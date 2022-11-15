@@ -34,21 +34,21 @@ public class Hangman {
 
     public void runGame() {
         announceGame();
-        initializeGameState();
         //System.out.println(randomWord.toString() + blankArr.toString());
-        while (askToPlayAgain()) {
+//        while (askToPlayAgain()) {
+            initializeGameState();
             while (!isWordGuessed()) {
                 printCurrentState();
                 //char guess = getNextGuess();
                 process(getNextGuess());
                 numOfGuesses++;
+                if (numOfGuesses == 5) {
+                    System.exit(0);
+                }
             }
             playerWon();
-            if (numOfGuesses == 5) {
-                System.exit(0);
-            }
             askToPlayAgain();
-        }
+        //}
         gameOver();
     }
 
@@ -86,6 +86,7 @@ public class Hangman {
         System.out.println("Would you like to play again?\n1. yes 2. no");
         int playAgainInput = scanner.nextInt();
         if (playAgainInput == 1) {
+            runGame();
         } else {
             System.exit(0);
         }
